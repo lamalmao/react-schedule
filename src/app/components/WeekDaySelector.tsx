@@ -1,23 +1,19 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { modifySchedule } from '../../redux/schedules';
+import CronSchedule from '../cron-schedule';
 
 const WeekDaySelector: FC<{
-  from: number;
-  to: number;
-}> = ({ from, to }) => {
+  schedule: CronSchedule;
+}> = ({ schedule }) => {
   const dispatch = useDispatch();
-  const [fromValue, setFromValue] = useState<string>();
-  const [toValue, setToValue] = useState<string>();
   return (
     <div>
       <h2 className="data-title">Day of week</h2>
       <select
-        defaultValue={from}
-        value={fromValue}
+        value={schedule.values.week.from}
         onChange={e => {
           const value = e.currentTarget.value;
-          setFromValue(value);
           dispatch(
             modifySchedule({
               target: 'week',
@@ -37,11 +33,9 @@ const WeekDaySelector: FC<{
         <option value="7">Sunday</option>
       </select>
       <select
-        defaultValue={to}
-        value={toValue}
+        value={schedule.values.week.to}
         onChange={e => {
           const value = e.currentTarget.value;
-          setToValue(value);
           dispatch(
             modifySchedule({
               target: 'week',

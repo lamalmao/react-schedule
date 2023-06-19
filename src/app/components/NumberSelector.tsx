@@ -8,19 +8,11 @@ const NumberSelector: FC<{
   title: string;
   minValue: number;
   maxValue: number;
-  defaultValueFrom: number;
-  defaultValueTo: number;
+  schedule: CronSchedule;
   target: keyof CronSchedule['_period'];
 }> = props => {
   const dispatch = useDispatch();
-  const {
-    title,
-    minValue,
-    maxValue,
-    defaultValueFrom,
-    defaultValueTo,
-    target
-  } = props;
+  const { title, minValue, maxValue, schedule, target } = props;
   const id = (Math.random() * 1_000_000).toString();
   return (
     <div key={id}>
@@ -29,7 +21,7 @@ const NumberSelector: FC<{
         type="number"
         max={maxValue}
         min={minValue}
-        defaultValue={defaultValueFrom}
+        defaultValue={schedule.values[target].from}
         placeholder="From"
         onChange={e => {
           dispatch(
@@ -45,7 +37,7 @@ const NumberSelector: FC<{
         type="number"
         max={maxValue}
         min={minValue}
-        defaultValue={defaultValueTo}
+        defaultValue={schedule.values[target].to}
         placeholder="To"
         onChange={e => {
           dispatch(

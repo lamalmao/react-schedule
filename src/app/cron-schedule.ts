@@ -24,12 +24,12 @@ export class ScheduleOption {
   private static _createWeekOptionFromString(
     value: Readonly<string>
   ): ScheduleOption {
-    if (/^(sun|tue|wed|thu|fri|sat|sun)$/i.test(value)) {
+    if (/^(mon|tue|wed|thu|fri|sat|sun)$/i.test(value)) {
       return new ScheduleOption(ScheduleOption._weeks[value.toLowerCase()]);
     }
 
     const values =
-      /^(sun|tue|wed|thu|fri|sat|sun)-(sun|tue|wed|thu|fri|sat|sun)$/i.exec(
+      /^(mon|tue|wed|thu|fri|sat|sun)-(mon|tue|wed|thu|fri|sat|sun)$/i.exec(
         value
       );
     if (values) {

@@ -11,8 +11,6 @@ const ScheduleEditMenu: FC<{
 }> = ({ schedule }) => {
   const dispatch = useDispatch();
   const [action, setAction] = useState<string>();
-  const currentSchedule = schedule;
-  const values = currentSchedule.values;
   return (
     <div className="container editMenu">
       <ul className="schedule-menu">
@@ -21,8 +19,7 @@ const ScheduleEditMenu: FC<{
             minValue={0}
             maxValue={60}
             title="Minutes"
-            defaultValueFrom={values.minute.from}
-            defaultValueTo={values.minute.to}
+            schedule={schedule}
             target="minute"
           />
         </li>
@@ -31,8 +28,7 @@ const ScheduleEditMenu: FC<{
             minValue={0}
             maxValue={24}
             title="Hours"
-            defaultValueFrom={values.hour.from}
-            defaultValueTo={values.hour.to}
+            schedule={schedule}
             target="hour"
           />
         </li>
@@ -41,22 +37,15 @@ const ScheduleEditMenu: FC<{
             minValue={0}
             maxValue={31}
             title="Day of month"
-            defaultValueFrom={values.day.from}
-            defaultValueTo={values.day.to}
+            schedule={schedule}
             target="day"
           />
         </li>
         <li className="edit-item">
-          <MonthSelector
-            from={schedule.values.month.from}
-            to={schedule.values.month.to}
-          />
+          <MonthSelector schedule={schedule} />
         </li>
         <li className="edit-item">
-          <WeekDaySelector
-            from={schedule.values.week.from}
-            to={schedule.values.week.to}
-          />
+          <WeekDaySelector schedule={schedule} />
         </li>
         <li>
           <input

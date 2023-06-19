@@ -1,23 +1,20 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { modifySchedule } from '../../redux/schedules';
+import CronSchedule from '../cron-schedule';
 
 const MonthSelector: FC<{
-  from: number;
-  to: number;
-}> = ({ from, to }) => {
+  schedule: CronSchedule;
+}> = ({ schedule }) => {
   const dispatch = useDispatch();
-  const [fromValue, setFromValue] = useState<string>();
-  const [toValue, setToValue] = useState<string>();
   return (
     <div>
       <h2 className="data-title">Month</h2>
       <select
-        value={fromValue}
-        defaultValue={from}
+        // value={fromValue}
+        value={schedule.values.month.from}
         onChange={e => {
           const newValue = e.currentTarget.value;
-          setFromValue(newValue);
           dispatch(
             modifySchedule({
               target: 'month',
@@ -42,11 +39,9 @@ const MonthSelector: FC<{
         <option value="12">December</option>
       </select>
       <select
-        value={toValue}
-        defaultValue={to}
+        value={schedule.values.month.to}
         onChange={e => {
           const newValue = e.currentTarget.value;
-          setToValue(newValue);
           dispatch(
             modifySchedule({
               target: 'month',

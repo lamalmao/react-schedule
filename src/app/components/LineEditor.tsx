@@ -10,6 +10,7 @@ const LineEditor = () => {
   const [text, textChange] = useState<string>(value);
   const dispatch = useDispatch();
   let errorMessage = '';
+  const schedule = useSelector((state: RootState) => state.schedules.schedule);
 
   return (
     <div className="container editor">
@@ -49,15 +50,12 @@ const LineEditor = () => {
           value="Save"
           onClick={() => {
             try {
-              state.schedule.verify();
+              schedule.verify();
+              const newText = state.schedule.cronString;
+              textChange(newText);
               dispatch(
                 modifyValue({
-                  value: state.schedule.cronString
-                })
-              );
-              dispatch(
-                setSchedule({
-                  newSchedule: state.schedule
+                  value: newText
                 })
               );
             } catch (error) {
